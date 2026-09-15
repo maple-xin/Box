@@ -212,16 +212,19 @@
       }else if(this.kind===1){
         ellipse(0,0,this.size*.75,this.size*1.8);
       }else if(this.kind===2){
-        drawStar(window,0,0,this.size*.34,this.size,5);
+        stroke(red(c),green(c),blue(c),220*a);
+        strokeWeight(max(.7,this.size*.22));
+        line(-this.size,0,this.size,0);
+        line(0,-this.size,0,this.size);
+        line(-this.size*.62,-this.size*.62,this.size*.62,this.size*.62);
+        line(this.size*.62,-this.size*.62,-this.size*.62,this.size*.62);
+        noStroke();
+        circle(0,0,this.size*.72);
       }else if(this.kind===3){
         rectMode(CENTER);
         rect(0,0,this.size*.55,this.size*1.6,this.size*.2);
       }else{
-        beginShape();
-        vertex(0,-this.size);
-        bezierVertex(this.size*.9,-this.size*.35,this.size*.7,this.size*.75,0,this.size);
-        bezierVertex(-this.size*.7,this.size*.75,-this.size*.9,-this.size*.35,0,-this.size);
-        endShape(CLOSE);
+        ellipse(0,0,this.size*.9,this.size*2);
       }
       pop();
     }
@@ -366,14 +369,13 @@
   }
 
   function drawStar(target,x,y,inner,outer,points){
-    const api=target===window?window:target;
-    api.beginShape();
+    target.beginShape();
     for(let i=0;i<points*2;i++){
       const angle=-HALF_PI+i*PI/points;
       const radius=i%2===0?outer:inner;
-      api.vertex(x+cos(angle)*radius,y+sin(angle)*radius);
+      target.vertex(x+cos(angle)*radius,y+sin(angle)*radius);
     }
-    api.endShape(CLOSE);
+    target.endShape(CLOSE);
   }
 
   function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
